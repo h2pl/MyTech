@@ -4,7 +4,6 @@ package com.javaweb.servlet;
  * Created by 周杰伦 on 2018/3/31.
  */
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

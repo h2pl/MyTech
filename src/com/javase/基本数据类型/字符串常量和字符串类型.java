@@ -54,10 +54,7 @@ public class 字符串常量和字符串类型 {
         System.out.println(s1 == s2);
         System.out.println(s1 == s3);
     }
-    public static void main(String[] args) {
-
-
-    }
+    //字符串的equals方法
 //    public boolean equals(Object anObject) {
 //            if (this == anObject) {
 //                return true;

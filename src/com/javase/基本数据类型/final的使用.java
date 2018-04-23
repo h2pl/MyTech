@@ -1,6 +1,5 @@
 package com.javase.基本数据类型;
 
-import com.sun.xml.internal.ws.api.server.SDDocument;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,6 +13,11 @@ public class final的使用 {
 
     }
     class Si{
+        //一般情况下final修饰的变量一定要被初始化。
+        //只有下面这种情况例外，要求该变量必须在构造方法中被初始化。
+        //并且不能有空参数的构造方法。
+        //这样就可以让每个实例都有一个不同的变量，并且这个变量在每个实例中只会被初始化一次
+        //于是这个变量在单个实例里就是常量了。
         final int s ;
         Si(int s) {
             this.s = s;
@@ -21,6 +25,15 @@ public class final的使用 {
     }
     class Bi {
         final int a = 1;
+        final void go() {
+            //final修饰方法无法被继承
+        }
+    }
+    class Ci extends Bi {
+        final int a = 1;
+//        void go() {
+//            //final修饰方法无法被继承
+//        }
     }
     final char[]a = {'a'};
     final int[]b = {1};
@@ -36,7 +49,6 @@ public class final的使用 {
         System.out.println(f);
         //改变实例中的值并不改变内存地址。
 
-
         Fi ff = f;
         //让引用指向新的Fi对象，原来的f对象由新的引用ff持有。
         //引用的指向改变也不会改变原来对象的地址
@@ -44,22 +56,25 @@ public class final的使用 {
         System.out.println(f);
         System.out.println(ff);
     }
+
+
     @Test
-    public void final初始化() {
-        Fi fi = new Fi();
+    public void final修饰方法() {
+        Bi bi = new Bi();
+        bi.go();//该方法无法被子类Ci重写
 
     }
-
     @Test
-    public void final修饰引用() {
-        final String a = "a";
-        final
-        //a = "b";报错
-        String b = new String("b");
-//        b = "a";
-    }
-    @Test
-    public void final修饰基本类型变量和数组() {
-
+    public void final修饰基本类型变量和引用() {
+        final int a = 1;
+        final int[] b = {1};
+        final int[] c = {1};
+//        b = c;报错
+        b[0] = 1;
+        final String aa = "a";
+        final Fi f = new Fi();
+        //aa = "b";报错
+        // f = null;//报错
+        f.a = 1;
     }
 }

@@ -1,4 +1,4 @@
-package com.javase.基本数据类型;
+package com.javase.字符串;
 
 /**
  * Created by 周杰伦 on 2018/4/22.

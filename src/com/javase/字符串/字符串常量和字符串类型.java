@@ -1,4 +1,4 @@
-package com.javase.基本数据类型;
+package com.javase.字符串;
 
 import org.junit.jupiter.api.Test;
 

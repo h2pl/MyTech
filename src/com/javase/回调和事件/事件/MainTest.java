@@ -1,4 +1,4 @@
-package com.javase.回调和委托机制.事件;
+package com.javase.回调和事件.事件;
 
 /**
  * Created by 周杰伦 on 2018/4/26.

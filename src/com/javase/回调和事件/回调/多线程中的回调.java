@@ -1,4 +1,4 @@
-package com.javase.回调和委托机制.回调;
+package com.javase.回调和事件.回调;
 
 
 import org.junit.jupiter.api.Test;

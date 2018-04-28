@@ -3,11 +3,20 @@ package com.javase.反射;
 /**
  * Created by 周杰伦 on 2018/4/1.
  */
-public class UserBean {
+public class UserBean extends PersonBean implements User{
+    @Override
+    public void login() {
+
+    }
+
+    class B {
+
+    }
+
     public String userName;
     protected int i;
     static int j;
-    int l;
+    private int l;
     private long userId;
     public UserBean(String userName, long userId) {
         this.userName = userName;

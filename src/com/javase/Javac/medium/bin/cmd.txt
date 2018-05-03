@@ -1,0 +1,63 @@
+D:\MyTech\src\com\javase\Javac\medium\bin>jar cvf h.jar *
+已添加清单
+正在添加: com/(输入 = 0) (输出 = 0)(存储了 0%)
+正在添加: com/hi/(输入 = 0) (输出 = 0)(存储了 0%)
+正在添加: com/hi/hello.class(输入 = 421) (输出 = 288)(压缩了 31%)
+正在添加: com/hi/hey.class(输入 = 410) (输出 = 281)(压缩了 31%)
+正在添加: com/hi/hi.class(输入 = 407) (输出 = 281)(压缩了 30%)
+
+
+D:\MyTech\src\com\javase\Javac\medium\bin>java h.jar com.hi.hey
+错误: 找不到或无法加载主类 h.jar
+
+D:\MyTech\src\com\javase\Javac\medium\bin>java -cp h.jar com.hi.hello
+helloWorld
+
+D:\MyTech\src\com\javase\Javac\medium\bin>jar cvfe h.jar com.hi.hey *
+已添加清单
+正在添加: cmd.txt(输入 = 364) (输出 = 172)(压缩了 52%)
+正在添加: com/(输入 = 0) (输出 = 0)(存储了 0%)
+正在添加: com/hi/(输入 = 0) (输出 = 0)(存储了 0%)
+正在添加: com/hi/hello.class(输入 = 421) (输出 = 288)(压缩了 31%)
+正在添加: com/hi/hey.class(输入 = 410) (输出 = 281)(压缩了 31%)
+正在添加: com/hi/hi.class(输入 = 407) (输出 = 281)(压缩了 30%)
+
+D:\MyTech\src\com\javase\Javac\medium\bin>jar cvfe h.jar com.hi.hey *
+已添加清单
+正在添加: cmd.txt(输入 = 364) (输出 = 172)(压缩了 52%)
+正在添加: com/(输入 = 0) (输出 = 0)(存储了 0%)
+正在添加: com/hi/(输入 = 0) (输出 = 0)(存储了 0%)
+正在添加: com/hi/hello.class(输入 = 421) (输出 = 288)(压缩了 31%)
+正在添加: com/hi/hey.class(输入 = 410) (输出 = 281)(压缩了 31%)
+正在添加: com/hi/hi.class(输入 = 407) (输出 = 281)(压缩了 30%)
+
+D:\MyTech\src\com\javase\Javac\medium\bin>java -jar h.jar
+hey
+
+
+
+D:\MyTech\src\com\javase\Javac\medium\bin\com\hi>javap hi.class
+Compiled from "hi.java"
+public class com.hi.hi {
+  public com.hi.hi();
+  public static void main(java.lang.String[]);
+}
+
+D:\MyTech\src\com\javase\Javac\medium\bin\com\hi>javap -c hi.class
+Compiled from "hi.java"
+public class com.hi.hi {
+  public com.hi.hi();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       3: ldc           #3                  // String hi
+       5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       8: return
+}
+
+

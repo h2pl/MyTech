@@ -1,7 +1,10 @@
 package com.Java集合;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -65,10 +68,30 @@ class FailFastTest {
     }
 }
 
+//可比较接口的实现
 class BookBean implements Serializable, Comparable {
     private String name;
     private int count;
 
+    //比较器的实现
+    @Test
+    public void test() {
+        List<Object> list = new ArrayList<>();
+        Comparator c = new Comparator<Object>() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return o1.hashCode() - o2.hashCode();
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                return obj == this;
+            }
+        };
+        list.sort(c);
+        list.sort(((o1, o2) -> o1.hashCode() - o2.hashCode()));
+        list.sort((Comparator.comparingInt(Object::hashCode)));
+    }
 
     public BookBean(String name, int count) {
         this.name = name;

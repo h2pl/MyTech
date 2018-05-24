@@ -1,6 +1,5 @@
-package com.juc.multiThread;
+package com.Java并发.JUC.一些例子;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.juc.multiThread;
+package com.Java并发.JUC.一些例子;
 
 /**
  * Producer Consumer model

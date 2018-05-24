@@ -1,7 +1,4 @@
-package com.juc.multiThread;
-
-import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
+package com.Java并发.JUC.一些例子;
 
 /**
  * Created by Jay on 3/22/17.

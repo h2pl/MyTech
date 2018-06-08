@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="son2:war">
+    <output-path>$PROJECT_DIR$/../parent/son2/target</output-path>
+    <root id="archive" name="parent.war">
+      <element id="artifact" artifact-name="son2:war exploded" />
+    </root>
+  </artifact>
+</component>

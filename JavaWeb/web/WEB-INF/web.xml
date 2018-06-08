@@ -5,19 +5,32 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
     <display-name>wthfeng的mvc练习项目</display-name>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/applicationContext.xml</param-value>
+    </context-param>
     <servlet>
         <servlet-name>hello</servlet-name>
-        <servlet-class>Servlet.HelloServlet</servlet-class>
+        <servlet-class>Servlet相关.Servlet.HelloServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>hello</servlet-name>
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.form</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>myFilter</filter-name>
-        <filter-class>Filter和listener.MyFilter</filter-class>
+        <filter-class>Servlet相关.Filter和listener.MyFilter</filter-class>
         <init-param>
             <param-name>myParam</param-name>
             <param-value>myValue</param-value>
@@ -29,6 +42,9 @@
     </filter-mapping>
 
     <!--如我们常见的Spring项目中的如下片段，就是Spring的监听器。其实现了ServletContextListener，用于监听Servlet上下文，以便在项目初始化时加载Spring的必要配置。-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

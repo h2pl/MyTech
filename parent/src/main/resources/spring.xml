@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- IOC和DI的注解扫描 -->
+    <context:component-scan base-package="com" ></context:component-scan>
+
+    <!-- 打开AOP的注解 -->
+    <!-- 这里用的是中间的横线而不是下划线 -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    <!--实现DataSource即可使用连接池，因为获取connection的接口被重新实现了-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring_03"></property>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="123456"></property>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--<bean id="userDao" class="com.spring.dao.UserDao">-->
+        <!--<property name="jdbcTemplate" ref="jdbcTemplate"></property>-->
+    <!--</bean>-->
+
+    <!--<bean id="userService" class="com.spring.service.UserService">-->
+        <!--<property name="userDao" ref="userDao"></property>-->
+    <!--</bean>-->
+
+</beans>

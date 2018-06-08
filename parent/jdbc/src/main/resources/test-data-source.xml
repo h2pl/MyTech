@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc
+       http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+
+    <!-- 初始化数据表结构 -->
+    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="classpath:h2/schema.sql" encoding="UTF-8"/>
+        <jdbc:script location="classpath:h2/data-prepare.sql" encoding="UTF-8"/>
+    </jdbc:initialize-database>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${user.jdbc.url}"/>
+        <property name="username" value="${user.jdbc.username}"/>
+        <property name="password" value="${user.jdbc.password}"/>
+        <!-- 连接池初始连接数 -->
+        <property name="initialSize" value="3"/>
+        <!-- 允许的最大同时使用中(在被业务线程持有，还没有归还给druid) 的连接数 -->
+        <property name="maxActive" value="30"/>
+        <!-- 允许的最小空闲连接数，空闲连接超时踢除过程会最少保留的连接数 -->
+        <property name="minIdle" value="3"/>
+        <!-- 从连接池获取连接的最大等待时间 5 秒-->
+        <property name="maxWait" value="5000"/>
+
+        <!-- 强行关闭从连接池获取而长时间未归还给druid的连接(认为异常连接）-->
+        <property name="removeAbandoned" value="true"/>
+        <!-- 异常连接判断条件，超过180 秒 则认为是异常的，需要强行关闭 -->
+        <property name="removeAbandonedTimeout" value="180"/>
+
+        <!-- 从连接池获取到连接后，如果超过被空闲剔除周期，是否做一次连接有效性检查 -->
+        <property name="testWhileIdle" value="true"/>
+        <!-- 从连接池获取连接后，是否马上执行一次检查 -->
+        <property name="testOnBorrow" value="false"/>
+        <!-- 归还连接到连接池时是否马上做一次检查 -->
+        <property name="testOnReturn" value="false"/>
+        <!-- 连接有效性检查的SQL -->
+        <property name="validationQuery" value="SELECT 1"/>
+        <!-- 连接有效性检查的超时时间 1 秒 -->
+        <property name="validationQueryTimeout" value="1"/>
+
+        <!-- 周期性剔除长时间呆在池子里未被使用的空闲连接, 10秒一次-->
+        <property name="timeBetweenEvictionRunsMillis" value="10000"/>
+        <!-- 空闲多久可以认为是空闲太长而需要剔除 30 秒-->
+        <property name="minEvictableIdleTimeMillis" value="30000"/>
+
+        <!-- 是否缓存prepareStatement,也就是PSCache,MySQL建议关闭 -->
+        <property name="poolPreparedStatements" value="false"/>
+        <property name="maxOpenPreparedStatements" value="-1"/>
+
+        <!-- 是否设置自动提交，相当于每个语句一个事务 -->
+        <property name="defaultAutoCommit" value="true"/>
+        <!-- 记录被判定为异常的连接 -->
+        <property name="logAbandoned" value="true"/>
+        <!-- 网络读取超时，网络连接超时 -->
+        <property name="connectionProperties" value="connectTimeout=1000;socketTimeout=3000"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml"/>
+        <property name="typeAliasesPackage" value="org.learnjava.dq.core.dal.bean"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.learnjava.dq.core.dal.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+</beans>

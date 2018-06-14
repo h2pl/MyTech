@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- springMVC扫描的包 -->
+    <context:component-scan base-package="controller"/>
+
+    <!-- DispatcherServlet不处理静态资源,交给服务器默认的servlet处理 -->
+    <mvc:default-servlet-handler />
+
+    <!-- 启用annotation -->
+    <mvc:annotation-driven />
+
+    <!-- 视图渲染器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          id="internalResourceViewResolver">
+        <!-- 前缀 -->
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <!-- 后缀 -->
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <ref bean="stringHttpMessageConverter" />
+            <ref bean="fastJsonHttpMessageConverter" />
+            <ref bean="marshallingHttpMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean id="stringHttpMessageConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter">
+        <constructor-arg value="UTF-8" index="0"></constructor-arg><!--
+            避免出现乱码 -->
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/plain;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="fastJsonHttpMessageConverter"
+          class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value><!-- 避免IE出现下载JSON文件的情况 -->
+            </list>
+        </property>
+        <property name="features">
+            <util:list>
+                <!-- <value>WriteMapNullValue</value> -->
+                <value>QuoteFieldNames</value>
+                <value>WriteDateUseDateFormat</value>
+            </util:list>
+        </property>
+    </bean>
+
+    <bean id="marshallingHttpMessageConverter"
+          class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+        <property name="marshaller" ref="castorMarshaller" />
+        <property name="unmarshaller" ref="castorMarshaller" />
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/xml;charset=UTF-8</value>
+                <value>application/xml;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+</beans>

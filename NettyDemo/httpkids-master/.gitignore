@@ -1,0 +1,7 @@
+.settings
+.project
+.classpath
+*.class
+target
+deploy
+dependency-reduced-pom.xml

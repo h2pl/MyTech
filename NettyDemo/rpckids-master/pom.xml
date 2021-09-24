@@ -31,7 +31,7 @@
 	</scm>
 
 	<properties>
-		<netty.version>4.1.1.Final</netty.version>
+		<netty.version>4.1.68.Final</netty.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
